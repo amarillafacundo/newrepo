@@ -4,3 +4,111 @@
 *:after {
   box-sizing: border-box;
 }
+
+/* ===== Global Styles ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  color: #222;
+  background-color: #f5f5f5;
+}
+
+main {
+  padding: 1rem;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2rem;
+}
+
+.hero p {
+  margin-top: 0.5rem;
+}
+
+/* ===== Features ===== */
+.features {
+  margin-top: 2rem;
+}
+
+.features ul {
+  margin-top: 1rem;
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+/* ===== Inventory ===== */
+.inventory {
+  margin-top: 2rem;
+}
+
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.vehicle-card {
+  background: white;
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* ===== Media Queries ===== */
+@media (min-width: 768px) {
+  main {
+    max-width: 1100px;
+    margin: auto;
+  }
+
+  .vehicle-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+}
+
+/* ===== Navigation Styling (Optional) ===== */
+nav {
+  margin-bottom: 1.5rem;
+}
+
+nav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  margin: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
