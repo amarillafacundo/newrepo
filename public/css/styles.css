@@ -112,3 +112,85 @@ nav a {
 nav a:hover {
   text-decoration: underline;
 }
+
+
+/* ==============================
+   Classification Inventory Grid
+   ============================== */
+
+#inv-display {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+#inv-display li {
+  background-color: white;
+  border-radius: 6px;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+#inv-display img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.namePrice {
+  margin-top: 0.5rem;
+}
+
+.namePrice h2 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.namePrice a {
+  text-decoration: none;
+  color: #222;
+}
+
+.namePrice a:hover {
+  text-decoration: underline;
+}
+
+.namePrice span {
+  display: block;
+  font-weight: bold;
+  color: #1e3a8a;
+  margin-top: 0.25rem;
+}
+
+/* Responsive layout */
+@media (min-width: 768px) {
+  #inv-display {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==============================
+   Hover Effects for Inventory
+   ============================== */
+
+#inv-display li {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#inv-display li:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Image zoom on hover */
+#inv-display li img {
+  transition: transform 0.3s ease;
+}
+
+#inv-display li:hover img {
+  transform: scale(1.05);
+}
