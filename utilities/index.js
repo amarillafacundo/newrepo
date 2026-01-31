@@ -26,6 +26,32 @@ Util.getNav = async function () {
   return list
 }
 
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+/* ***************************
+ *  Build vehicle detail HTML
+ * ************************** */
+Util.buildVehicleDetail = function (vehicle) {
+  return `
+  <section class="vehicle-detail">
+    <img src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model}">
+    <div class="vehicle-info">
+      <h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
+      <p class="price">$${new Intl.NumberFormat("en-US").format(vehicle.inv_price)}</p>
+      <p><strong>Mileage:</strong> ${new Intl.NumberFormat("en-US").format(vehicle.inv_miles)} miles</p>
+      <p><strong>Description:</strong> ${vehicle.inv_description}</p>
+      <p><strong>Color:</strong> ${vehicle.inv_color}</p>
+    </div>
+  </section>
+  `
+}
+
+
 module.exports = Util
 
 /* **************************************
