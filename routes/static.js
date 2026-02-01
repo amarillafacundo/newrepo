@@ -5,8 +5,11 @@ const path = require("path");
 // Serve all static files from /public
 router.use(express.static(path.join(__dirname, "..", "public")));
 
-router.get("/error", async (req, res, next) => {
-  next(new Error("Intentional server error"))
+router.get("/error", (req, res, next) => {
+  next({
+    status: 500,
+    message: "Intentional error triggered from footer"
+  })
 })
 
 

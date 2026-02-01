@@ -86,33 +86,6 @@ main {
   }
 }
 
-/* ===== Navigation Styling (Optional) ===== */
-nav {
-  margin-bottom: 1.5rem;
-}
-
-nav ul {
-  display: flex;
-  gap: 1rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-nav li {
-  margin: 0;
-}
-
-nav a {
-  text-decoration: none;
-  color: #1e3a8a;
-  font-weight: 600;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
 
 /* ==============================
    Classification Inventory Grid
@@ -193,4 +166,76 @@ nav a:hover {
 
 #inv-display li:hover img {
   transform: scale(1.05);
+}
+
+/* ===============================
+   Vehicle Detail Page
+================================ */
+
+.vehicle-detail {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.vehicle-detail img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.vehicle-info {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+/* Desktop layout */
+@media (min-width: 768px) {
+  .vehicle-detail {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+/* ==========================
+   Navigation
+========================== */
+
+nav {
+  background-color: #1e3a8a;
+  padding: 0.75rem 1rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+nav li {
+  margin: 0;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 600px) {
+  nav ul {
+    justify-content: center;
+  }
 }
