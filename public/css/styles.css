@@ -239,24 +239,21 @@ nav a:hover {
     justify-content: center;
   }
 }
-
 /* ==========================
-   Forms
+   Login Page
 ========================== */
-
-/* Account Login View */
 .login-container {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 420px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .login-container h1 {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
 }
 
 .login-container form {
@@ -270,19 +267,28 @@ nav a:hover {
 }
 
 .login-container input {
-  margin-top: 0.3rem;
-  padding: 0.6rem;
+  margin-top: 0.4rem;
+  padding: 0.7rem;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.login-container input:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
 }
 
 .login-container button {
-  margin-top: 1.5rem;
-  padding: 0.7rem;
+  margin-top: 1.8rem;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
   background-color: #1a73e8;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -291,6 +297,33 @@ nav a:hover {
 }
 
 .login-container p {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   text-align: center;
+}
+
+
+/* Flash Messages */
+ul.messages {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+ul.messages li {
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+ul.messages.notice {
+  background-color: #e7f3ff;
+  color: #084298;
+  border: 1px solid #b6d4fe;
+}
+
+ul.messages.error {
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
 }
