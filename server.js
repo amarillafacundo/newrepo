@@ -15,6 +15,7 @@ const app = express()
 const static = require("./routes/static")
 const session = require("express-session")
 const pool = require('./database/')
+const accountRoute = require("./routes/accountRoute")
 
 /* ***********************
  * View Engine and Template
@@ -53,7 +54,9 @@ app.use(require("./routes/static"))
 // Index Route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
-app.use("/inv", inventoryRoute)
+app.use("/inv", require("./routes/inventoryRoute"))
+// Account routes
+app.use("/account", require("./routes/accountRoute"))
 
 // Intentional Error Route (Assignment requirement)
 app.get("/error",
