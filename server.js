@@ -6,6 +6,7 @@ const utilities = require("./utilities/")
 /* ***********************
  * Require Statements
  *************************/
+const bodyParser = require("body-parser")
 const inventoryRoute = require("./routes/inventoryRoute")
 const baseController = require("./controllers/baseController")
 const express = require("express")
@@ -44,6 +45,9 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 
 
