@@ -327,3 +327,18 @@ ul.messages.error {
   color: #842029;
   border: 1px solid #f5c2c7;
 }
+
+input:required:invalid,
+input:focus:invalid {
+  border: 2px solid #c0392b;
+}
+
+input:required:valid {
+  border: 2px solid #27ae60;
+}
+
+.password-rules {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
