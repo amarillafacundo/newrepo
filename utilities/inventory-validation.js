@@ -1,0 +1,110 @@
+const { body, validationResult } = require("express-validator")
+const utilities = require(".")
+
+const validate = {}
+
+validate.classificationRules = () => {
+  return [
+    body("classification_name")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 3 })
+      .withMessage("Please provide a classification name."),
+  ]
+}
+
+validate.inventoryRules = () => {
+  return [
+    body("classification_id")
+      .notEmpty()
+      .withMessage("Please select a classification."),
+
+    body("inv_make")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a make."),
+
+    body("inv_model")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a model."),
+
+    body("inv_year")
+      .isInt({ min: 1900 })
+      .withMessage("Please provide a valid year."),
+
+    body("inv_description")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a description."),
+
+    body("inv_image")
+      .trim()
+      .notEmpty()
+      .withMessage("Please provide an image path."),
+
+    body("inv_thumbnail")
+      .trim()
+      .notEmpty()
+      .withMessage("Please provide a thumbnail path."),
+
+    body("inv_price")
+      .isFloat({ min: 0 })
+      .withMessage("Please provide a valid price."),
+
+    body("inv_miles")
+      .isInt({ min: 0 })
+      .withMessage("Please provide valid mileage."),
+
+    body("inv_color")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a color."),
+  ]
+}
+
+validate.checkInventoryData = async (req, res, next) => {
+  let errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    let classificationSelect = await utilities.buildClassificationList(
+      req.body.classification_id
+    )
+    res.render("inventory/add-inventory", {
+      errors,
+      title: "Add Inventory",
+      nav,
+      classificationSelect,
+      ...req.body,
+    })
+    return
+  }
+  next()
+}
+
+
+
+validate.checkClassificationData = async (req, res, next) => {
+  const { classification_name } = req.body
+  let errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("inventory/add-classification", {
+      errors,
+      title: "Add Classification",
+      nav,
+      classification_name,
+    })
+    return
+  }
+  next()
+}
+
+module.exports = validate
