@@ -10,12 +10,21 @@ router.get("/register", utilities.handleErrors(accountController.buildRegister))
 router.post("/register", regValidate.registationRules(), regValidate.checkRegData, utilities.handleErrors(accountController.registerAccount)
 )
 
-// Process the login attempt
+// Process the login request
 router.post(
   "/login",
-  (req, res) => {
-    res.status(200).send('login process')
-  }
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountController.accountLogin)
 )
+
+// Account management route
+router.get(
+  "/",
+  utilities.checkLogin,
+  accountController.buildManagement
+)
+
+
 
 module.exports = router
