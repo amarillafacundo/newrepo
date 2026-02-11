@@ -6,3 +6,42 @@
         <li><a href="/inv/add-classification">Add New Classification</a></li>
         <li><a href="/inv/add-inventory">Add New Inventory</a></li>
     </ul>
+
+    <hr>
+    
+    <h2>Select Inventory by Classification</h2>
+    
+    <label for="classificationList">Choose a Classification:</label>
+    <%- classificationList %>
+    
+    <br><br>
+    
+    <label for="inventoryList">Choose Inventory:</label>
+    <select name="inv_id" id="inventoryList">
+        <option value="">Select Inventory Item</option>
+    </select>
+
+<script>
+    document.getElementById("classificationList").addEventListener("change", function () {
+        const classificationId = this.value
+
+        if (!classificationId) {
+            return
+        }
+
+        fetch(`/inv/getInventory/${classificationId}`)
+            .then(response => response.json())
+            .then(data => {
+                let inventoryList = document.getElementById("inventoryList")
+                inventoryList.innerHTML = "<option value=''>Select Inventory Item</option>"
+
+                data.forEach(item => {
+                    let option = document.createElement("option")
+                    option.value = item.inv_id
+                    option.textContent = item.inv_make + " " + item.inv_model
+                    inventoryList.appendChild(option)
+                })
+            })
+            .catch(error => console.log(error))
+    })
+</script>
