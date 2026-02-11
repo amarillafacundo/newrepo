@@ -20,6 +20,10 @@
     <select name="inv_id" id="inventoryList">
         <option value="">Select Inventory Item</option>
     </select>
+    
+    <br><br>
+    <div id="inventoryActions"></div>
+
 
 <script>
     document.getElementById("classificationList").addEventListener("change", function () {
@@ -43,5 +47,19 @@
                 })
             })
             .catch(error => console.log(error))
+
+            document.getElementById("inventoryList").addEventListener("change", function () {
+            const invId = this.value
+            const actionsDiv = document.getElementById("inventoryActions")
+
+            if (invId) {
+                actionsDiv.innerHTML = `
+            <a href="/inv/edit/${invId}">Modify</a>
+        `
+            } else {
+                actionsDiv.innerHTML = ""
+            }
+        })
+
     })
 </script>

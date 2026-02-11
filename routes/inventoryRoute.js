@@ -27,4 +27,7 @@ router.post("/add-inventory", invValidate.inventoryRules(), invValidate.checkInv
 // Route to get inventory data in JSON format
 router.get("/getInventory/:classification_id", invController.getInventoryJSON)
 
+// Route to build edit inventory view
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
+
 module.exports = router
