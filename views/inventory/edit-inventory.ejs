@@ -13,7 +13,8 @@
         </ul>
         <% } %>
 
-            <form action="/inv/update" method="post">
+            <form id="updateForm" action="/inv/update" method="post">
+                
 
                 <input type="hidden" name="inv_id" value="<%= inv_id %>">
 
@@ -49,5 +50,9 @@
                 <input type="text" name="inv_color" id="inv_color" required value="<%= inv_color %>">
 
 
-                <button type="submit">Update Vehicle</button>
+                <button type="submit" disabled>Update Vehicle</button>
+
+
             </form>
+
+            <script src="/js/inv-update.js"></script>
