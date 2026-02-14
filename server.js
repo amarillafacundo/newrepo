@@ -65,6 +65,10 @@ app.use("/inv", require("./routes/inventoryRoute"))
 // Account routes
 app.use("/account", require("./routes/accountRoute"))
 
+// Review routes
+app.use("/review", require("./routes/reviewRoute"))
+
+
 // Intentional Error Route (Assignment requirement)
 app.get("/error",utilities.handleErrors(async (req, res) => {throw new Error("Intentional server error")}))
 

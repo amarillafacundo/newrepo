@@ -4,3 +4,44 @@
         <%= title %>
     </h1>
     <%- vehicleHTML %>
+
+    <hr>
+    <h2>Customer Reviews</h2>
+    
+    <%- messages() %>
+    
+        <% if (loggedin) { %>
+            <form action="/review/add" method="post">
+                <textarea name="review_text" required></textarea>
+    
+                <label>Rating (1-5)</label>
+                <input type="number" name="review_rating" min="1" max="5" required>
+    
+                <input type="hidden" name="inv_id" value="<%= vehicleData.inv_id %>">
+    
+                <button type="submit">Submit Review</button>
+            </form>
+            <% } else { %>
+                <p>Please log in to leave a review.</p>
+                <% } %>
+    
+                    <hr>
+    
+                    <% if (reviews && reviews.length> 0) { %>
+                        <% reviews.forEach(review=> { %>
+                            <div style="margin-bottom:15px;">
+                                <strong>
+                                    <%= review.account_firstname %>
+                                </strong>
+                                <p>Rating: <%= review.review_rating %>/5</p>
+                                <p>
+                                    <%= review.review_text %>
+                                </p>
+                                <small>
+                                    <%= new Date(review.review_date).toLocaleDateString() %>
+                                </small>
+                            </div>
+                            <% }) %>
+                                <% } else { %>
+                                    <p>No reviews yet.</p>
+                                    <% } %>
