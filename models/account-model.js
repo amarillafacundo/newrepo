@@ -38,5 +38,28 @@ async function getAccountByEmail (account_email) {
     return new Error("No matching email found")
   }
 }
+/* *****************************
+* Return account data using account_id
+* ***************************** */
+async function getAccountById(account_id) {
+  const sql = "SELECT * FROM account WHERE account_id = $1"
+  const result = await pool.query(sql, [account_id])
+  return result.rows[0]
+}
 
-module.exports = { accountRegister, checkExistingEmail, getAccountByEmail }
+/* *****************************
+* Update account information
+* ***************************** */
+async function updatePassword(hash, account_id) {
+  const sql = `
+    UPDATE account
+    SET account_password=$1
+    WHERE account_id=$2
+    RETURNING *
+  `
+  const result = await pool.query(sql, [hash, account_id])
+  return result.rowCount
+}
+
+
+module.exports = { accountRegister, checkExistingEmail, getAccountByEmail, getAccountById, updatePassword }

@@ -121,11 +121,76 @@ async function accountLogin(req, res) {
 
 async function buildManagement(req, res) {
   const nav = await utilities.getNav()
+  const accountData = res.locals.accountData
   res.render("account/management", {
     title: "Account Management",
     nav,
+    account_firstname: accountData.account_firstname,
+    account_type: accountData.account_type,
+    account_id: accountData.account_id
   })
 }
 
+/* ****************************************
+*  Build account update view
+* *************************************** */
+async function buildUpdateView(req, res) {
+  const nav = await utilities.getNav()
+  const account_id = req.params.account_id
+  const accountData = await accountModel.getAccountById(account_id)
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin,buildManagement }
+  res.render("account/update", {
+    title: "Update Account",
+    nav,
+    ...accountData
+  })
+}
+
+/* ****************************************
+*  Process account update
+* *************************************** */
+async function updateAccount(req, res) {
+  const { account_firstname, account_lastname, account_email, account_id } = req.body
+
+  const result = await accountModel.updateAccountInfo(
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_id
+  )
+
+  if (result) {
+    req.flash("notice", "Account updated successfully.")
+    return res.redirect("/account/")
+  } else {
+    req.flash("notice", "Update failed.")
+    return res.redirect(`/account/update/${account_id}`)
+  }
+}
+
+async function updatePassword(req, res) {
+  const { account_password, account_id } = req.body
+
+  const hashedPassword = await bcrypt.hash(account_password, 10)
+
+  const result = await accountModel.updatePassword(hashedPassword, account_id)
+
+  if (result) {
+    req.flash("notice", "Password updated successfully.")
+    return res.redirect("/account/")
+  } else {
+    req.flash("notice", "Password update failed.")
+    return res.redirect(`/account/update/${account_id}`)
+  }
+}
+
+function logout(req, res) {
+  res.clearCookie("jwt")
+  return res.redirect("/")
+}
+
+
+
+
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin,buildManagement, buildUpdateView, updateAccount, updatePassword, logout }

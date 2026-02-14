@@ -57,6 +57,32 @@ validate.loginRules = () => {
   ]
 }
 
+/* **********************************
+ * Update Account Data Validation Rules
+ * ********************************* */
+validate.updateAccountRules = () => {
+  return [
+    body("account_firstname")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("First name is required."),
+
+    body("account_lastname")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Last name is required."),
+
+    body("account_email")
+      .trim()
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("A valid email is required.")
+  ]
+}
+
+
   
   
 /* ******************************
@@ -95,6 +121,63 @@ validate.checkLoginData = async (req, res, next) => {
       title: "Login",
       nav,
       account_email,
+    })
+    return
+  }
+  next()
+}
+
+/* ******************************
+ * Check update account data
+ * ***************************** */
+validate.checkUpdateAccountData = async (req, res, next) => {
+  const { account_firstname, account_lastname, account_email, account_id } = req.body
+  let errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/update", {
+      errors,
+      title: "Update Account",
+      nav,
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_id
+    })
+    return
+  }
+  next()
+}
+
+/* **********************************
+ * Update Password Validation Rules
+ * ********************************* */
+validate.updatePasswordRules = () => {
+  return [
+    body("account-password")
+      .trim()
+      .isLength({ min: 12 })
+      .withMessage("Password must be at least 12 characters long.")
+  ]
+}
+
+/* ******************************
+ * Check update password data
+ * ***************************** */
+validate.checkUpdatePasswordData = async (req, res, next) => {
+  const { account_id } = req.body
+  let errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    const accountData = await accountModel.getAccountById(account_id)
+
+    res.render("account/update", {
+      errors,
+      title: "Update Account",
+      nav,
+      ...accountData
     })
     return
   }

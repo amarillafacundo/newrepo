@@ -11,19 +11,23 @@ router.post("/register", regValidate.registationRules(), regValidate.checkRegDat
 )
 
 // Process the login request
-router.post(
-  "/login",
-  regValidate.loginRules(),
-  regValidate.checkLoginData,
-  utilities.handleErrors(accountController.accountLogin)
-)
+router.post( "/login",regValidate.loginRules(), regValidate.checkLoginData, utilities.handleErrors(accountController.accountLogin))
 
 // Account management route
-router.get(
-  "/",
-  utilities.checkLogin,
-  accountController.buildManagement
+router.get("/", utilities.checkLogin, accountController.buildManagement
 )
+
+
+// Account update routes
+router.get("/update/:account_id", utilities.checkLogin, utilities.handleErrors(accountController.buildUpdateView))
+
+router.post(
+  "/update", utilities.checkLogin, regValidate.updateAccountRules(), regValidate.checkUpdateAccountData, utilities.handleErrors(accountController.updateAccount))
+
+// Update password
+router.post( "/update-password", utilities.checkLogin, regValidate.updatePasswordRules(), regValidate.checkUpdatePasswordData, utilities.handleErrors(accountController.updatePassword))
+
+router.get("/logout", accountController.logout)
 
 
 
